@@ -13,7 +13,7 @@ type AppState = AttributeTypes & {
 
 type Action = 'inc' | 'dec'
 
-const baseValues = {
+export const baseValues = {
 	minLevel: 1,
 	maxLevel: 50,
 	initialPoints: 7,
@@ -22,7 +22,7 @@ const baseValues = {
 	maxAttributePoints: 20,
 }
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>((set) => ({
 	level: baseValues.minLevel,
 	points: baseValues.initialPoints,
 	body: baseValues.minAttributePoints,
@@ -32,20 +32,44 @@ export const useAppStore = create<AppState>((set, get) => ({
 	cool: baseValues.minAttributePoints,
 	updateLevel: (action) =>
 		set((state) => {
-			const allowInc = get().level < baseValues.maxLevel
-			const allowDec = get().level > baseValues.minLevel && get().points > baseValues.minPoints
 			return {
-				inc: allowInc ? { level: state.level + 1, points: state.points + 1 } : state,
-				dec: allowDec ? { level: state.level - 1, points: state.points - 1 } : state,
+				inc: allowAction.inc.level() ? { level: state.level + 1, points: state.points + 1 } : state,
+				dec: allowAction.dec.level() ? { level: state.level - 1, points: state.points - 1 } : state,
 			}[action]
 		}),
-	updateAttribute: (attribute, action) =>
+	updateAttribute: (attribute, action) => {
 		set((state) => {
-			const allowInc = get().points > baseValues.minPoints && get()[attribute] < baseValues.maxAttributePoints
-			const allowDec = get()[attribute] > baseValues.minAttributePoints
 			return {
-				inc: allowInc ? { [attribute]: state[attribute] + 1, points: state.points - 1 } : state,
-				dec: allowDec ? { [attribute]: state[attribute] - 1, points: state.points + 1 } : state,
+				inc: allowAction.inc.attribute(attribute)
+					? { [attribute]: state[attribute] + 1, points: state.points - 1 }
+					: state,
+				dec: allowAction.dec.attribute(attribute)
+					? { [attribute]: state[attribute] - 1, points: state.points + 1 }
+					: state,
 			}[action]
-		}),
+		})
+	},
 }))
+
+const allowAction: {
+	inc: {
+		level: () => boolean
+		attribute: (attribute: Attribute) => boolean
+	}
+	dec: {
+		level: () => boolean
+		attribute: (attribute: Attribute) => boolean
+	}
+} = {
+	inc: {
+		level: () => useAppStore.getState().level < baseValues.maxLevel,
+		attribute: (attribute: Attribute) =>
+			useAppStore.getState().points > baseValues.minPoints &&
+			useAppStore.getState()[attribute] < baseValues.maxAttributePoints,
+	},
+	dec: {
+		level: () =>
+			useAppStore.getState().level > baseValues.minLevel && useAppStore.getState().points > baseValues.minPoints,
+		attribute: (attribute: Attribute) => useAppStore.getState()[attribute] > baseValues.minAttributePoints,
+	},
+}

@@ -5,16 +5,18 @@ import { LevelCounter } from './components/LevelCounter'
 
 function App() {
 	return (
-		<div className={styles.App}>
-			<header className={styles.AppHeader}>
-				<LevelCounter />
-				<AttributeCounter attribute="body" />
-				<AttributeCounter attribute="reflexes" />
-				<AttributeCounter attribute="technicalAbility" />
-				<AttributeCounter attribute="intelligence" />
-				<AttributeCounter attribute="cool" />
-			</header>
-		</div>
+		<main className={styles.App}>
+			<div className={styles.AppContent}>
+				<div>
+					<LevelCounter />
+					<AttributeCounter attribute="body" />
+					<AttributeCounter attribute="reflexes" />
+					<AttributeCounter attribute="technicalAbility" />
+					<AttributeCounter attribute="intelligence" />
+					<AttributeCounter attribute="cool" />
+				</div>
+			</div>
+		</main>
 	)
 }
 
