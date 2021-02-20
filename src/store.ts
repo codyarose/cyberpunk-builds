@@ -1,6 +1,6 @@
 import create from 'zustand'
 
-export type Attribute = 'body' | 'reflexes' | 'technicalAbility' | 'intelligence' | 'cool'
+export type Attribute = 'body' | 'reflexes' | 'technical ability' | 'intelligence' | 'cool'
 type AttributeTypes = {
 	[Property in Attribute]: number
 }
@@ -27,7 +27,7 @@ export const useAppStore = create<AppState>((set) => ({
 	points: baseValues.initialPoints,
 	body: baseValues.minAttributePoints,
 	reflexes: baseValues.minAttributePoints,
-	technicalAbility: baseValues.minAttributePoints,
+	'technical ability': baseValues.minAttributePoints,
 	intelligence: baseValues.minAttributePoints,
 	cool: baseValues.minAttributePoints,
 	updateLevel: (action) =>
