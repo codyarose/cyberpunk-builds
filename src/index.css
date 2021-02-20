@@ -1,13 +1,29 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+	font-family: Cyberpunk;
+	src: url('./Cyberpunk.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root {
+	/* Pallette */
+	--red-300: hsl(348, 34%, 14%);
+	--red-200: hsl(349, 48%, 18%);
+	--red-100: hsl(0, 51%, 49%);
+	--yellow: hsl(45, 96%, 69%);
+	--black: hsl(213, 41%, 5%);
+	--cyan: hsl(183, 94%, 67%);
+	--dark-blue: hsl(244, 27%, 12%);
+
+	--text-color: var(--cyan);
+}
+
+body {
+	margin: 0;
+	font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+		'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-weight: 500;
+	color: var(--text-color);
 }
